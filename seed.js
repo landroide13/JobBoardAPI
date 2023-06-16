@@ -248,7 +248,7 @@ const jobs = [
 ]
 
 
-Job.insertMany(jobs).then(res =>  console.log(res))
+// Job.insertMany(jobs).then(res =>  console.log(res))
 
 
 

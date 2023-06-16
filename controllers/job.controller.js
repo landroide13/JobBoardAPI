@@ -15,6 +15,7 @@ exports.createJob = async(req, res) =>{
             job_city, 
             job_is_remote, 
             employer_logo } = req.body;
+
     const newJob = new Job({ employer_name, 
         job_title, 
         job_description, 
@@ -33,13 +34,13 @@ exports.createJob = async(req, res) =>{
 }
 
 exports.getJobs = async(req, res) =>{
-    const Jobs = await Jobs.find();
+    const Jobs = await Job.find();
     res.status(200).json(Jobs);
 }
 
 exports.getJob = async(req, res) =>{
     const Job = await Job.findById(req.params.id)
-    res.status(200).json(audio);
+    res.status(200).json(Job);
 }
 
 exports.updateJob = async(req, res) =>{
