@@ -45,10 +45,9 @@ exports.getType = async(req, res) =>{
 
     let result = [...jobs];
 
-    if (job_employment_type) {
+    if (job_employment_type){
         result = result.filter(r => r.job_employment_type === job_employment_type);
     }
-
     if(job_is_remote){
         result = result.filter(r => r.job_is_remote === job_is_remote);
     }  
@@ -66,17 +65,4 @@ exports.updateJob = async(req, res) =>{
     res.status(200).json(updateJob);
 }
 
-exports.TypeFullTime = async(req, res) =>{
-    const fullTime = await Job.find().where('job_employment_type').equals("Full-Time");
-    res.status(204).json(fullTime);
-}
 
-exports.TypePartTime = async(req, res) =>{
-    const part = await Job.find().where('job_employment_type').equals("Part-Time");
-    res.status(204).json(part);
-}
-
-exports.TypeContractor = async(req, res) =>{
-    const contra = await Job.find().where('job_employment_type').equals("CONTRACTOR")
-    res.status(204).json(contra);
-}

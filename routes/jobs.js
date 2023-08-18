@@ -8,6 +8,7 @@ router.get('/', getJobs);
 router.get('/types', getType);
 
 router.get('/search');
+
 router.get('/:id', getJob);
 
 //router.post('/', createJob);
