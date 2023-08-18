@@ -1,7 +1,7 @@
 const Job = require('../models/Job')
 
 exports.createJob = async(req, res) =>{
-    console.log(req.body);
+    //console.log(req.body);
     const { employer_name, 
             job_title, 
             job_description, 
@@ -38,9 +38,27 @@ exports.getJobs = async(req, res) =>{
     res.status(200).json(Jobs);
 }
 
+exports.getType = async(req, res) =>{
+    const jobs = await Job.find();
+
+    const { job_employment_type, job_is_remote } = req.query;
+
+    let result = [...jobs];
+
+    if (job_employment_type) {
+        result = result.filter(r => r.job_employment_type === job_employment_type);
+    }
+
+    if(job_is_remote){
+        result = result.filter(r => r.job_is_remote === job_is_remote);
+    }  
+
+    res.status(200).json(result);
+}
+
 exports.getJob = async(req, res) =>{
-    const Job = await Job.findById(req.params.id)
-    res.status(200).json(Job);
+    const JobFind = await Job.findById(req.params.id)
+    res.status(200).json(JobFind);
 }
 
 exports.updateJob = async(req, res) =>{
@@ -48,7 +66,17 @@ exports.updateJob = async(req, res) =>{
     res.status(200).json(updateJob);
 }
 
-exports.deleteJob = async(req, res) =>{
-    await Job.findByIdAndDelete(req.params.id);
-    res.status(204).json();
+exports.TypeFullTime = async(req, res) =>{
+    const fullTime = await Job.find().where('job_employment_type').equals("Full-Time");
+    res.status(204).json(fullTime);
+}
+
+exports.TypePartTime = async(req, res) =>{
+    const part = await Job.find().where('job_employment_type').equals("Part-Time");
+    res.status(204).json(part);
+}
+
+exports.TypeContractor = async(req, res) =>{
+    const contra = await Job.find().where('job_employment_type').equals("CONTRACTOR")
+    res.status(204).json(contra);
 }
